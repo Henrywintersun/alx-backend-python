@@ -1,5 +1,6 @@
 import sqlite3
 import functools
+from datetime import datetime
 
 #### decorator to log SQL queries
 
@@ -12,13 +13,13 @@ def log_queries(func):
         # Look for query in positional arguments
         if args:
             query = args[0]
-            print(f"Executing SQL query: {query}")
+            print(f"[{datetime.now()}] Executing SQL query: {query}")
         # Look for query in keyword arguments
         elif 'query' in kwargs:
             query = kwargs['query']
-            print(f"Executing SQL query: {query}")
+            print(f"[{datetime.now()}] Executing SQL query: {query}")
         else:
-            print("Warning: No SQL query found in function arguments")
+            print(f"[{datetime.now()}] Warning: No SQL query found in function arguments")
         
         # Execute the original function
         return func(*args, **kwargs)
